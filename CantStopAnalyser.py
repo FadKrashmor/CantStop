@@ -41,7 +41,7 @@ def cant_stop_pc(val):
                 tot_fails += 1 # now out of 4*1296
     return 100 - tot_fails*100/5184
 
-def doit(*args):
+def chance_of_progress():
     print("Yo!")
     entries = []
     num1 = total1.get()
@@ -58,10 +58,9 @@ def doit(*args):
         success_rate = cant_stop_pc(entries)
     else:
         success_rate = 0
-    result.set(str(round(success_rate, 2)))
+    result1.set(str(round(success_rate, 2)))
     return
 
-#Utilities..................................................................
 def throws_for_value(val, succeed=True, throws=None):
     """
     Input: A value, or list/tuple of values to test.
@@ -115,6 +114,12 @@ def calc_pc_val(pc_vals=None):
         pc_vals.append(value[1] * VALS[key-2])
     return pc_vals
         
+                        
+
+def current_progress():
+    return
+
+
 def print_cant_stop_passing(rate, tofile=False):
     """
     Prints all % chances to roll one of three values, ordered by value
@@ -151,10 +156,10 @@ def print_cant_stop_pass_pc(rate, tofile=False):
     for item in t:
         print('%g;' % round(item[0], 2), end='')
         print('%2d; %2d; %2d' % item[1])
-                        
+
 
 if __name__ == "__main__":
-    tc = 4
+    tc = 0
     if tc == 1: #Test 1: Print one percentage calculation, one of three wanted.
         test_val = (4, 6, 7)
         print('TC01: Test values: %d, %d, %d' % \
@@ -180,13 +185,13 @@ if __name__ == "__main__":
             
 root = Tk()
 #rename the title of the window
-root.title("Percentage chances")
+root.title("Can't Stop Analysis")
 mainframe = Frame(root).\
             grid(column=0, row=0, sticky=(N, W, E, S))
 #
 current_row = 1
 current_col = 0
-label = Label(mainframe, text="Enter totals required when throwing 2 dice").\
+heading1 = Label(mainframe, text="Enter totals required when throwing 2 dice").\
              grid(row=current_row, column=current_col, columnspan=3)
 #
 current_row += 1
@@ -199,7 +204,7 @@ current_col +=1
 t3_label = Label(mainframe, text="Total 3").\
            grid(row=current_row, column=current_col, sticky=W)
 current_col += 1
-run_button = Button(mainframe, text="Calculate %", command=doit).\
+run_button1 = Button(mainframe, text="Calculate %", command=chance_of_progress).\
              grid(row=current_row, column=current_col, sticky=W)
 #
 current_row += 1
@@ -219,9 +224,39 @@ tot3 = Entry(mainframe, textvariable=total3)
 tot3.insert(0, "0")
 tot3.grid(row=current_row, column=current_col)
 current_col +=1
-result = StringVar()
-res = Entry(mainframe, textvariable=result).\
+result1 = StringVar()
+res1 = Entry(mainframe, textvariable=result1).\
       grid(row=current_row, column=current_col)
-root.bind("<Return>", doit)
+#
+current_row += 1
+current_col = 0
+heading2 = Label(mainframe, text="Enter totals chosen").\
+             grid(row=current_row, column=current_col, columnspan=3)
+current_row += 1
+current_col = 0
+chosen1_label = Label(mainframe, text="Total 1").\
+           grid(row=current_row, column=current_col, sticky=W)
+current_col += 1
+chosen2_label = Label(mainframe, text="Total 2").\
+           grid(row=current_row, column=current_col, sticky=W)
+current_col += 2
+run_button2 = Button(mainframe, text="Calculate %", command=current_progress).\
+             grid(row=current_row, column=current_col, sticky=W)
+#
+current_row += 1
+current_col = 0
+chosen1 = StringVar()
+c1 = Entry(mainframe, textvariable=chosen1)
+c1.insert(0, "0")
+c1.grid(row=current_row, column=current_col)
+current_col +=1
+chosen2 = StringVar()
+c2 = Entry(mainframe, textvariable=chosen2)
+c2.insert(0, "0")
+c2.grid(row=current_row, column=current_col)
+current_col += 2
+result2 = StringVar()
+res2 = Entry(mainframe, textvariable=result2).\
+      grid(row=current_row, column=current_col)
 #
 root.mainloop()
