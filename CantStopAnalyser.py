@@ -1,6 +1,7 @@
 #Revision: 3
 #Includes code aiming to analyse the value of moves
 #Fad: Rev 3 implements function - update_progress()
+#     Rev 3.1 - clear entry boxes for Task 2
 from tkinter import Tk, Frame, Label, Entry, Button, StringVar, \
                     N, S, E, W
 TWO_DICE_TOTALS = ('2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12')
@@ -110,8 +111,8 @@ def update_progress():
     if chosen in TWO_DICE_TOTALS:
         progress += float(STEP_VALUES[(int(chosen)-2)])
     result2.set(str(round(progress, 2)))
-    chosen1.set("0")
-    chosen2.set("0")
+    chosen1.set("")
+    chosen2.set("")
 
 """
 Extras
@@ -255,12 +256,10 @@ current_row += 1
 current_col = 0
 chosen1 = StringVar()
 c1 = Entry(mainframe, textvariable=chosen1)
-c1.insert(0, "0")
 c1.grid(row=current_row, column=current_col)
 current_col +=1
 chosen2 = StringVar()
 c2 = Entry(mainframe, textvariable=chosen2)
-c2.insert(0, "0")
 c2.grid(row=current_row, column=current_col)
 current_col += 1
 progress_label = Label(mainframe, text="Progress:").\
