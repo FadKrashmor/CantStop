@@ -2,6 +2,7 @@
 #Includes code aiming to analyse the value of moves
 #Fad: Rev 3 implements function - update_progress()
 #     Rev 3.1 - clear entry boxes for Task 2
+#     Rev 3.2 - cater for leading zeroes in entry of totals
 from tkinter import Tk, Frame, Label, Entry, Button, StringVar, \
                     N, S, E, W
 TWO_DICE_TOTALS = ('2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12')
@@ -21,13 +22,19 @@ def chance_of_progress():
     num1 = total1.get()
     num2 = total2.get()
     num3 = total3.get()
-    print('Numbers entered:', num1, num2, num3)
+    while num1[0] == "0":
+        num1 = num1[1:]
     if num1 in TWO_DICE_TOTALS:
         entries.append(int(num1))
+    while num2[0] == "0":
+        num2 = num2[1:]
     if num2 in TWO_DICE_TOTALS:
         entries.append(int(num2))
+    while num3[0] == "0":
+        num3 = num3[1:]
     if num3 in TWO_DICE_TOTALS:
         entries.append(int(num3))
+    print('Numbers entered:', num1, num2, num3)
     if len(entries) > 0:
         success_rate = cant_stop_pc(entries)
     else:
